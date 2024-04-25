@@ -1,11 +1,16 @@
 <script setup>
 import * as Cesium from 'cesium'
-import { onMounted } from 'vue'
+import { onMounted, ref, markRaw } from 'vue'
+import { useViewerStore } from './store/viewerStore'
+import Test from './components/Test.vue'
+
+const containerRef = ref()
+const viewerStore = useViewerStore()
 
 onMounted(() => {
   Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI0MGMyMWM0YS1lNDEyLTRjNWYtYTY3OS1jOTZkOWM1OThjYTEiLCJpZCI6MTkxMTMxLCJpYXQiOjE3MDU5MDY1ODN9.Tq3eObtuZJiqt4rDl-srQkMfz-WP9_EvKEPa_UvOI5s'
 
-  const viewer = new Cesium.Viewer('cesiumContainer', {
+  const viewer = new Cesium.Viewer(containerRef.value, {
     animation: false,
     // baseLayerPicker: false,
     fullscreenButton: false,
@@ -21,8 +26,8 @@ onMounted(() => {
   })
   viewer._cesiumWidget._creditContainer.style.display = 'none'
 
-  // 相机最大缩放距离
-  viewer.scene.screenSpaceCameraController.maximumZoomDistance = 3000
+  // // 相机最大缩放距离
+  // viewer.scene.screenSpaceCameraController.maximumZoomDistance = 3000
 
   // 初始视角为ecnu
   viewer.camera.setView({
@@ -44,12 +49,15 @@ onMounted(() => {
 
   // baseLayerPicker
   
+  const rawViewer = markRaw(viewer)
+  viewerStore.setCesiumViewer(rawViewer)
 })
 </script>
 
 <template>
-  <div id="cesiumContainer">
+  <div id="cesiumContainer" ref="containerRef">
   </div>
+  <Test class="c123"></Test>
 </template>
 
 <style scoped lang="scss">
@@ -57,5 +65,14 @@ onMounted(() => {
   height: 100vh;
   width: 100vw;
   overflow: hidden;
+}
+.c123 {
+  color: red;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  width: 100px;
+  height: 100px;
 }
 </style>
