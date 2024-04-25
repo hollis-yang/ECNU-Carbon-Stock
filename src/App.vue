@@ -7,11 +7,11 @@ onMounted(() => {
 
   const viewer = new Cesium.Viewer('cesiumContainer', {
     animation: false,
-    baseLayerPicker: false,
+    // baseLayerPicker: false,
     fullscreenButton: false,
     vrButton: false,
     geocoder: false,
-    homeButton: false,
+    // homeButton: false,
     infoBox: false,
     sceneModePicker: false,
     selectionIndicator: false,
@@ -19,8 +19,27 @@ onMounted(() => {
     navigationHelpButton: false,
     navigationInstructionsInitiallyVisible: false,
   })
-
   viewer._cesiumWidget._creditContainer.style.display = 'none'
+
+  // 初始视角为ecnu
+  viewer.camera.setView({
+    destination: Cesium.Cartesian3.fromDegrees(121.448729, 31.033008, 3000),
+    orientation: {
+      heading: Cesium.Math.toRadians(0),
+      pitch: Cesium.Math.toRadians(-90),
+      roll: 0
+    }
+  })
+
+  // 修改home button默认飞行位置
+  viewer.homeButton.viewModel.command.beforeExecute.addEventListener(e => {
+    e.cancel = true
+    viewer.camera.flyTo({
+      destination: Cesium.Cartesian3.fromDegrees(121.448729, 31.033008, 3000)
+    })
+  })
+
+  
 })
 </script>
 
@@ -34,5 +53,5 @@ onMounted(() => {
   height: 100vh;
   width: 100vw;
   overflow: hidden;
-};
+}
 </style>
