@@ -29,10 +29,10 @@ onMounted(() => {
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 #cesiumContainer {
   height: 100vh;
   width: 100vw;
   overflow: hidden;
-}
+};
 </style>
