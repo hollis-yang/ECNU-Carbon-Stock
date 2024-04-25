@@ -21,6 +21,9 @@ onMounted(() => {
   })
   viewer._cesiumWidget._creditContainer.style.display = 'none'
 
+  // 相机最大缩放距离
+  viewer.scene.screenSpaceCameraController.maximumZoomDistance = 3000
+
   // 初始视角为ecnu
   viewer.camera.setView({
     destination: Cesium.Cartesian3.fromDegrees(121.448729, 31.033008, 3000),
@@ -39,6 +42,7 @@ onMounted(() => {
     })
   })
 
+  // baseLayerPicker
   
 })
 </script>
