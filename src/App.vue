@@ -2,7 +2,7 @@
 import * as Cesium from 'cesium'
 import { onMounted, ref, markRaw } from 'vue'
 import { useViewerStore } from './store/viewerStore'
-import Test from './components/Test.vue'
+import Tree from './components/Tree.vue'
 
 const containerRef = ref()
 const viewerStore = useViewerStore()
@@ -26,8 +26,8 @@ onMounted(() => {
   })
   viewer._cesiumWidget._creditContainer.style.display = 'none'
 
-  // // 相机最大缩放距离
-  // viewer.scene.screenSpaceCameraController.maximumZoomDistance = 3000
+  // 相机最大缩放距离
+  viewer.scene.screenSpaceCameraController.maximumZoomDistance = 3000
 
   // 初始视角为ecnu
   viewer.camera.setView({
@@ -47,8 +47,7 @@ onMounted(() => {
     })
   })
 
-  // baseLayerPicker
-  
+
   const rawViewer = markRaw(viewer)
   viewerStore.setCesiumViewer(rawViewer)
 })
@@ -56,8 +55,8 @@ onMounted(() => {
 
 <template>
   <div id="cesiumContainer" ref="containerRef">
+    <Tree />
   </div>
-  <Test class="c123"></Test>
 </template>
 
 <style scoped lang="scss">
@@ -65,14 +64,5 @@ onMounted(() => {
   height: 100vh;
   width: 100vw;
   overflow: hidden;
-}
-.c123 {
-  color: red;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 999;
-  width: 100px;
-  height: 100px;
 }
 </style>
