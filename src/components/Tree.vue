@@ -4,14 +4,16 @@
 <script setup>
 import * as Cesium from 'cesium'
 import { useViewerStore } from '@/store/viewerStore'
+import { onMounted } from 'vue';
 
-const viewerStore = useViewerStore()
+onMounted(async () => {
+  // const viewerStore = await useViewerStore()
 
-const treeTileset1 = viewerStore.$state.cesiumViewer.scene.primitives.add(
-  new Cesium.Cesium3DTileset({
-    url: 'http://localhost:9003/model/tahgr6WjU/tileset.json',
-    maximumScreenSpaceError: 1,
-    maximumNumberOfLoadedTiles: 1000
-  })
-)
+  // const treeTileset1 = viewerStore.$state.cesiumViewer.scene.primitives.add(
+  //   new Cesium.Cesium3DTileset({
+  //     url: 'http://localhost:9003/model/t6hT91R5f/tileset.json',
+  //   })
+  // )
+
+})
 </script>
