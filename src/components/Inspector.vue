@@ -12,6 +12,7 @@
 
 <style scoped lang="scss">
 .inspector {
+  padding-top: 1vh;
   padding-left: 1.5vh;
   padding-right: 1.5vh;
 

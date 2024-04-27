@@ -34,7 +34,7 @@ onMounted(() => {
 
   // 初始视角为ecnu
   viewer.camera.setView({
-    destination: Cesium.Cartesian3.fromDegrees(121.448729, 31.033008, 3000),
+    destination: Cesium.Cartesian3.fromDegrees(121.443729, 31.033008, 3000),
     orientation: {
       heading: Cesium.Math.toRadians(0),
       pitch: Cesium.Math.toRadians(-90),
@@ -46,7 +46,7 @@ onMounted(() => {
   viewer.homeButton.viewModel.command.beforeExecute.addEventListener(e => {
     e.cancel = true
     viewer.camera.flyTo({
-      destination: Cesium.Cartesian3.fromDegrees(121.448729, 31.033008, 3000)
+      destination: Cesium.Cartesian3.fromDegrees(121.443729, 31.033008, 3000)
     })
   })
 
