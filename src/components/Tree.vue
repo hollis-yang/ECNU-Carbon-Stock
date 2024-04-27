@@ -5,14 +5,14 @@
         <span>| 区域选择器</span>
       </div>
       <div class="rselector">
-        <el-checkbox v-model="regionChecked[0]" label="数学物理楼" size="large" border />
-        <el-checkbox v-model="regionChecked[1]" label="文科楼区域" size="large" border />
-        <el-checkbox v-model="regionChecked[2]" label="图书馆教学楼" size="large" border />
-        <el-checkbox v-model="regionChecked[3]" label="本科生宿舍区" size="large" border />
-        <el-checkbox v-model="regionChecked[4]" label="西操D楼资环生科" size="large" border />
-        <el-checkbox v-model="regionChecked[5]" label="东操大活华闵" size="large" border />
-        <el-checkbox v-model="regionChecked[6]" label="ABC音乐楼" size="large" border />
-        <el-checkbox v-model="regionChecked[7]" label="河口行政楼" size="large" border />
+        <el-checkbox v-model="regionChecked[0]" label="数学楼物理楼" border />
+        <el-checkbox v-model="regionChecked[1]" label="文科楼区域" border />
+        <el-checkbox v-model="regionChecked[2]" label="图书馆教学楼" border />
+        <el-checkbox v-model="regionChecked[3]" label="本科生宿舍区" border />
+        <el-checkbox v-model="regionChecked[4]" label="西操D楼资环生科" border />
+        <el-checkbox v-model="regionChecked[5]" label="东操大活华闵" border />
+        <el-checkbox v-model="regionChecked[6]" label="ABC音乐楼" border />
+        <el-checkbox v-model="regionChecked[7]" label="河口行政楼" border />
       </div>
       <div class="rsubmit">
         <el-button type="primary" @click="submitRegion">确认</el-button>

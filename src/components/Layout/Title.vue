@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="title">ECNU 碳 储 量 可 视 化 系 统</div>
+    <div class="title">ECNU 碳 储 量 可 视 化 平 台</div>
   </div>
 </template>
 
