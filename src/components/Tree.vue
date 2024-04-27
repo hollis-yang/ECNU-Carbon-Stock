@@ -123,7 +123,10 @@ onMounted(async () => {
         console.log(`拾取到的坐标: Longitude: ${longitude.value}, Latitude: ${latitude.value}`)
 
         // 找到点击的树
-        treeData.value = await getNearestTree(longitude.value, latitude.value, 3)
+        const checkedRegion = regionChecked.value
+          .map((value, index) => value ? index + 1 : -1)  // 如果元素为true，则保留索引+1，否则设为-1
+          .filter(index => index !== -1)  // 过滤掉为-1的元素，只保留有效的索引+1
+        treeData.value = await getNearestTree(longitude.value, latitude.value, checkedRegion)
         console.log(treeData.value)
 
         // 移除上一个选中的树
@@ -172,6 +175,10 @@ onMounted(async () => {
     ::v-deep .el-checkbox__label {
       color: white;
       font-size: 1.5vh !important;
+    }
+
+    ::v-deep .el-checkbox__input.is-checked+.el-checkbox__label {
+      color: #409EFF !important;
     }
   }
 
