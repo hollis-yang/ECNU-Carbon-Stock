@@ -24,6 +24,7 @@
 <script setup>
 import * as Cesium from 'cesium'
 import { useViewerStore } from '@/store/viewerStore'
+import { useTreeStore } from '@/store/treeStore'
 import { onMounted, ref } from 'vue'
 import { getNearestTree } from '@/apis/tree'
 
@@ -55,6 +56,7 @@ const submitRegion = () => {
 
 onMounted(async () => {
   const viewerStore = await useViewerStore()
+  const treeStore = await useTreeStore()
 
   // 加载3dtiles模型
   // treeTileset1 = viewerStore.$state.cesiumViewer.scene.primitives.add(new Cesium.Cesium3DTileset({
@@ -127,6 +129,8 @@ onMounted(async () => {
           .map((value, index) => value ? index + 1 : -1)  // 如果元素为true，则保留索引+1，否则设为-1
           .filter(index => index !== -1)  // 过滤掉为-1的元素，只保留有效的索引+1
         treeData.value = await getNearestTree(longitude.value, latitude.value, checkedRegion)
+        // 将data存入pinia
+        treeStore.setTreeInfo(treeData.value)
         console.log(treeData.value)
 
         // 移除上一个选中的树

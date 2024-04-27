@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="title">ECNU 碳储量三维可视化分析平台</div>
+    <div class="title">ECNU 碳储量三维可视化平台</div>
   </div>
 </template>
 
