@@ -155,38 +155,5 @@ onMounted(async () => {
 </script>
 
 <style scoped lang="scss">
-.region {
-  padding-left: 1.5vh;
-  padding-right: 1.5vh;
-  padding-top: 1vh;
-
-  .title {
-    font-size: 2.5vh;
-    color: white;
-    padding-bottom: 1.5vh;
-  }
-
-  .rselector {
-    margin-top: 0.5vh;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1vh;
-
-    ::v-deep .el-checkbox__label {
-      color: white;
-      font-size: 1.6vh !important;
-    }
-
-    ::v-deep .el-checkbox__input.is-checked+.el-checkbox__label {
-      color: #409EFF !important;
-    }
-  }
-
-  .rsubmit {
-    margin-top: -4vh;
-    margin-right: 2vh;
-    display: flex;
-    justify-content: right;
-  }
-}
+@import '@/style/Tree.scss'
 </style>

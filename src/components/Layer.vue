@@ -34,7 +34,6 @@
 import { ref, watch, onMounted } from 'vue'
 import * as Cesium from 'cesium'
 import { useViewerStore } from '@/store/viewerStore'
-import { FullScreen } from '@element-plus/icons-vue';
 
 const checkedLayers = ref('区域边界')
 const viewerStore = useViewerStore()
@@ -126,15 +125,5 @@ onMounted(async () => {
 </script>
 
 <style scoped lang="scss">
-.layer {
-  padding-top: 1vh;
-  padding-left: 1.5vh;
-  padding-right: 1.5vh;
-
-  .title {
-    font-size: 2.5vh;
-    color: white;
-    padding-bottom: 1.5vh;
-  }
-}
+@import '@/style/Layer.scss'
 </style>
