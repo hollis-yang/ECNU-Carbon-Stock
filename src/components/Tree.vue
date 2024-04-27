@@ -174,7 +174,7 @@ onMounted(async () => {
 
     ::v-deep .el-checkbox__label {
       color: white;
-      font-size: 1.5vh !important;
+      font-size: 1.6vh !important;
     }
 
     ::v-deep .el-checkbox__input.is-checked+.el-checkbox__label {

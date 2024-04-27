@@ -6,6 +6,7 @@ import Title from './components/Layout/Title.vue'
 import Avatar from './components/Layout/Avatar.vue'
 import Tree from './components/Tree.vue'
 import Inspector from './components/Inspector.vue'
+import Layer from './components/Layer.vue'
 
 const containerRef = ref()
 const viewerStore = useViewerStore()
@@ -60,6 +61,7 @@ onMounted(() => {
     <Title class="title"></Title>
     <Tree class="region"></Tree>
     <Inspector class="inspector"></Inspector>
+    <Layer class="layer"></Layer>
   </div>
   <div class="others">
     <Avatar></Avatar>
