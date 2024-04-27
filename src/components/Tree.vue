@@ -11,9 +11,41 @@ onMounted(async () => {
   const viewerStore = await useViewerStore()
 
   // 加载3dtiles模型
-  const treeTileset3 = viewerStore.$state.cesiumViewer.scene.primitives.add(new Cesium.Cesium3DTileset({
-    url: 'http://localhost:9003/model/tVjSrgznw/tileset.json',
+  const treeTileset2 = viewerStore.$state.cesiumViewer.scene.primitives.add(new Cesium.Cesium3DTileset({
+    url: 'http://localhost:9003/model/t7EgflT0u/tileset.json',
   }))
+  treeTileset2.show = false
+
+  const treeTileset3 = viewerStore.$state.cesiumViewer.scene.primitives.add(new Cesium.Cesium3DTileset({
+    url: 'http://localhost:9003/model/tqLBvVbc9/tileset.json',
+  }))
+  // treeTileset3.show = false
+
+  const treeTileset4 = viewerStore.$state.cesiumViewer.scene.primitives.add(new Cesium.Cesium3DTileset({
+    url: 'http://localhost:9003/model/tv1d61XW7/tileset.json',
+  }))
+  treeTileset4.show = false
+
+  const treeTileset5 = viewerStore.$state.cesiumViewer.scene.primitives.add(new Cesium.Cesium3DTileset({
+    url: 'http://localhost:9003/model/trtk1rELn/tileset.json',
+  }))
+  treeTileset5.show = false
+
+  const treeTileset6 = viewerStore.$state.cesiumViewer.scene.primitives.add(new Cesium.Cesium3DTileset({
+    url: 'http://localhost:9003/model/tqNxQd9Iz/tileset.json',
+  }))
+  treeTileset6.show = false
+
+  const treeTileset7 = viewerStore.$state.cesiumViewer.scene.primitives.add(new Cesium.Cesium3DTileset({
+    url: 'http://localhost:9003/model/tDzs2ueft/tileset.json',
+  }))
+  treeTileset7.show = false
+
+  const treeTileset8 = viewerStore.$state.cesiumViewer.scene.primitives.add(new Cesium.Cesium3DTileset({
+    url: 'http://localhost:9003/model/tPTgPPlE6/tileset.json',
+  }))
+  treeTileset8.show = false
+
 
   // 创建事件处理器实例
   const handler = new Cesium.ScreenSpaceEventHandler(viewerStore.$state.cesiumViewer.scene.canvas)
