@@ -5,11 +5,26 @@
         <span>| 图层管理器</span>
       </div>
       <div class="lselector">
-        <el-checkbox-group v-model="checkedLayers">
-          <el-checkbox-button v-for="layer in layers" :key="layer" :value="layer">
-            {{ layer }}
-          </el-checkbox-button>
-        </el-checkbox-group>
+        <el-radio-group v-model="checkedLayers" :max="1">
+          <el-radio-button value="格网碳储量">
+            <el-icon :size="15" style="vertical-align: middle; margin-right: 0.3vw; margin-left: -0.3vw;">
+              <Grid />
+            </el-icon>
+            <span style="vertical-align: middle">格网碳储量</span>
+          </el-radio-button>
+          <el-radio-button value="区域碳储量">
+            <el-icon :size="15" style="vertical-align: middle; margin-right: 0.3vw; margin-left: -0.3vw;">
+              <Picture />
+            </el-icon>
+            <span style="vertical-align: middle">区域碳储量</span>
+          </el-radio-button>
+          <el-radio-button value="区域边界">
+            <el-icon :size="15" style="vertical-align: middle; margin-right: 0.3vw; margin-left: -0.3vw;">
+              <FullScreen />
+            </el-icon>
+            <span style="vertical-align: middle">区域边界</span>
+          </el-radio-button>
+        </el-radio-group>
       </div>
     </div>
   </div>
@@ -19,13 +34,14 @@
 import { ref, watch, onMounted } from 'vue'
 import * as Cesium from 'cesium'
 import { useViewerStore } from '@/store/viewerStore'
+import { FullScreen } from '@element-plus/icons-vue';
 
-const checkedLayers = ref(['区域边界'])
-const layers = ['碳储量格网地图', '碳储量区域地图', '区域边界']
+const checkedLayers = ref('区域边界')
 
 // 需要加载的数据们
 let regionGeoJSON = null
 
+// 监听单选框的变化
 watch(checkedLayers, (newVal, oldVal) => {
   console.log('当前选中的图层：', newVal)
   // 碳储量格网地图
