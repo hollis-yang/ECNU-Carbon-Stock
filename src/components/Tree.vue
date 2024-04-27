@@ -106,7 +106,6 @@ onMounted(async () => {
   const longitude = ref()
   const latitude = ref()
   const treeData = ref()
-  let selectedTree = null // 跟踪选中的树
 
   // 设置鼠标左键点击事件的处理函数
   handler.setInputAction(async (click) => {
@@ -134,14 +133,14 @@ onMounted(async () => {
         console.log(treeData.value)
 
         // 移除上一个选中的树
-        if (selectedTree) {
-          viewerStore.$state.cesiumViewer.entities.remove(selectedTree)
-          selectedTree = null
+        if (treeStore.$state.selectedTree) {
+          viewerStore.$state.cesiumViewer.entities.remove(treeStore.$state.selectedTree)
+          treeStore.SelectedTree = null
         }
 
         // 在树的位置添加一个红色点
         const position = Cesium.Cartesian3.fromDegrees(treeData.value.lat, treeData.value.lng, 0)
-        selectedTree = viewerStore.$state.cesiumViewer.entities.add({
+        treeStore.$state.selectedTree = viewerStore.$state.cesiumViewer.entities.add({
           name: 'Red point',
           position: position,
           point: {
