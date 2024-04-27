@@ -57,8 +57,10 @@ onMounted(() => {
   <div class="top">
     <Layout class="layout"></Layout>
   </div>
+  <div class="left">
+    <Tree class="region"></Tree>
+  </div>
   <div id="cesiumContainer" ref="containerRef">
-    <Tree />
   </div>
 </template>
 

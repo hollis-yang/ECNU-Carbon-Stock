@@ -1,4 +1,22 @@
 <template>
+  <div>
+    <div class="region">
+      <span>| 区域选择器</span>
+      <div class="rselector">
+        <el-checkbox v-model="regionChecked[0]" label="数学物理楼" size="large" border />
+        <el-checkbox v-model="regionChecked[1]" label="文科楼区域" size="large" border />
+        <el-checkbox v-model="regionChecked[2]" label="图书馆教学楼" size="large" border />
+        <el-checkbox v-model="regionChecked[3]" label="宿舍区" size="large" border />
+        <el-checkbox v-model="regionChecked[4]" label="西操D楼资环生科" size="large" border />
+        <el-checkbox v-model="regionChecked[5]" label="东操大活华闵" size="large" border />
+        <el-checkbox v-model="regionChecked[6]" label="ABC音乐楼" size="large" border />
+        <el-checkbox v-model="regionChecked[7]" label="河口行政楼" size="large" border />
+      </div>
+      <div class="rsubmit">
+        <el-button type="primary" @click="submitRegion">确认</el-button>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup>
@@ -7,41 +25,72 @@ import { useViewerStore } from '@/store/viewerStore'
 import { onMounted, ref } from 'vue'
 import { getNearestTree } from '@/apis/tree'
 
+// region选择器状态
+const regionChecked = ref([false, false, false, false, false, false, false, false])
+
+// 初始化8个区域的3dtiles模型
+let treeTileset1 = null
+let treeTileset2 = null
+let treeTileset3 = null
+let treeTileset4 = null
+let treeTileset5 = null
+let treeTileset6 = null
+let treeTileset7 = null
+let treeTileset8 = null
+
+// 确认选择的区域
+const submitRegion = () => {
+  console.log(regionChecked.value)
+  // treeTileset1.show = regionChecked.value[0]
+  treeTileset2.show = regionChecked.value[1]
+  treeTileset3.show = regionChecked.value[2]
+  treeTileset4.show = regionChecked.value[3]
+  treeTileset5.show = regionChecked.value[4]
+  treeTileset6.show = regionChecked.value[5]
+  treeTileset7.show = regionChecked.value[6]
+  treeTileset8.show = regionChecked.value[7]
+}
+
 onMounted(async () => {
   const viewerStore = await useViewerStore()
 
   // 加载3dtiles模型
-  const treeTileset2 = viewerStore.$state.cesiumViewer.scene.primitives.add(new Cesium.Cesium3DTileset({
+  // treeTileset1 = viewerStore.$state.cesiumViewer.scene.primitives.add(new Cesium.Cesium3DTileset({
+  //   url: 'http://localhost:9003/model/t7EgflT0u/tileset.json',
+  // }))
+  // treeTileset1.show = false
+
+  treeTileset2 = viewerStore.$state.cesiumViewer.scene.primitives.add(new Cesium.Cesium3DTileset({
     url: 'http://localhost:9003/model/t7EgflT0u/tileset.json',
   }))
   treeTileset2.show = false
 
-  const treeTileset3 = viewerStore.$state.cesiumViewer.scene.primitives.add(new Cesium.Cesium3DTileset({
+  treeTileset3 = viewerStore.$state.cesiumViewer.scene.primitives.add(new Cesium.Cesium3DTileset({
     url: 'http://localhost:9003/model/tqLBvVbc9/tileset.json',
   }))
-  // treeTileset3.show = false
+  treeTileset3.show = false
 
-  const treeTileset4 = viewerStore.$state.cesiumViewer.scene.primitives.add(new Cesium.Cesium3DTileset({
+  treeTileset4 = viewerStore.$state.cesiumViewer.scene.primitives.add(new Cesium.Cesium3DTileset({
     url: 'http://localhost:9003/model/tv1d61XW7/tileset.json',
   }))
   treeTileset4.show = false
 
-  const treeTileset5 = viewerStore.$state.cesiumViewer.scene.primitives.add(new Cesium.Cesium3DTileset({
+  treeTileset5 = viewerStore.$state.cesiumViewer.scene.primitives.add(new Cesium.Cesium3DTileset({
     url: 'http://localhost:9003/model/trtk1rELn/tileset.json',
   }))
   treeTileset5.show = false
 
-  const treeTileset6 = viewerStore.$state.cesiumViewer.scene.primitives.add(new Cesium.Cesium3DTileset({
+  treeTileset6 = viewerStore.$state.cesiumViewer.scene.primitives.add(new Cesium.Cesium3DTileset({
     url: 'http://localhost:9003/model/tqNxQd9Iz/tileset.json',
   }))
   treeTileset6.show = false
 
-  const treeTileset7 = viewerStore.$state.cesiumViewer.scene.primitives.add(new Cesium.Cesium3DTileset({
+  treeTileset7 = viewerStore.$state.cesiumViewer.scene.primitives.add(new Cesium.Cesium3DTileset({
     url: 'http://localhost:9003/model/tDzs2ueft/tileset.json',
   }))
   treeTileset7.show = false
 
-  const treeTileset8 = viewerStore.$state.cesiumViewer.scene.primitives.add(new Cesium.Cesium3DTileset({
+  treeTileset8 = viewerStore.$state.cesiumViewer.scene.primitives.add(new Cesium.Cesium3DTileset({
     url: 'http://localhost:9003/model/tPTgPPlE6/tileset.json',
   }))
   treeTileset8.show = false
@@ -99,3 +148,17 @@ onMounted(async () => {
   }, Cesium.ScreenSpaceEventType.LEFT_CLICK)
 })
 </script>
+
+<style scoped lang="scss">
+.region {
+  font-size: 2vh;
+  color: white;
+
+  .rselector {
+    margin-top: 1vh;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1vh;
+  }
+}
+</style>

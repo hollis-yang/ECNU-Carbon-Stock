@@ -12,6 +12,7 @@
     "@kjgl77/datav-vue3": "^1.7.2",
     "axios": "^1.6.8",
     "cesium": "1.99",
+    "element-plus": "^2.7.2",
     "pinia": "^2.1.7",
     "sass": "^1.75.0",
     "sass-loader": "^14.2.1",
