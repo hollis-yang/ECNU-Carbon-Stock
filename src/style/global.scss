@@ -1,5 +1,20 @@
 #cesiumContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
   height: 100vh;
   width: 100vw;
   overflow: hidden;
+}
+
+.top {
+  width: 100%;
+  height: 10vh;
+  display: flex;
+  align-items: center;
+
+  .layout {
+    margin: 0 auto;
+    z-index: 1000;
+  }
 }

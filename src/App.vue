@@ -2,6 +2,7 @@
 import * as Cesium from 'cesium'
 import { onMounted, ref, markRaw } from 'vue'
 import { useViewerStore } from './store/viewerStore'
+import Layout from './components/Layout.vue'
 import Tree from './components/Tree.vue'
 
 const containerRef = ref()
@@ -53,6 +54,9 @@ onMounted(() => {
 </script>
 
 <template>
+  <div class="top">
+    <Layout class="layout"></Layout>
+  </div>
   <div id="cesiumContainer" ref="containerRef">
     <Tree />
   </div>

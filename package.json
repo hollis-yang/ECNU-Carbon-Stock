@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@kjgl77/datav-vue3": "^1.7.2",
     "axios": "^1.6.8",
     "cesium": "1.99",
     "pinia": "^2.1.7",
