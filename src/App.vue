@@ -2,7 +2,7 @@
 import * as Cesium from 'cesium'
 import { onMounted, ref, markRaw } from 'vue'
 import { useViewerStore } from './store/viewerStore'
-import Layout from './components/Layout.vue'
+import Title from './components/Title.vue'
 import Tree from './components/Tree.vue'
 import Inspector from './components/Inspector.vue'
 
@@ -55,10 +55,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="top">
-    <Layout class="layout"></Layout>
-  </div>
   <div class="left">
+    <Title class="title"></Title>
     <Tree class="region"></Tree>
     <Inspector class="inspector"></Inspector>
   </div>
