@@ -1,12 +1,14 @@
 <template>
   <div>
     <div class="region">
-      <span>| 区域选择器</span>
+      <div class="title">
+        <span>| 区域选择器</span>
+      </div>
       <div class="rselector">
         <el-checkbox v-model="regionChecked[0]" label="数学物理楼" size="large" border />
         <el-checkbox v-model="regionChecked[1]" label="文科楼区域" size="large" border />
         <el-checkbox v-model="regionChecked[2]" label="图书馆教学楼" size="large" border />
-        <el-checkbox v-model="regionChecked[3]" label="宿舍区" size="large" border />
+        <el-checkbox v-model="regionChecked[3]" label="本科生宿舍区" size="large" border />
         <el-checkbox v-model="regionChecked[4]" label="西操D楼资环生科" size="large" border />
         <el-checkbox v-model="regionChecked[5]" label="东操大活华闵" size="large" border />
         <el-checkbox v-model="regionChecked[6]" label="ABC音乐楼" size="large" border />
@@ -151,14 +153,33 @@ onMounted(async () => {
 
 <style scoped lang="scss">
 .region {
-  font-size: 2vh;
-  color: white;
+  padding-left: 1.5vh;
+  padding-right: 1.5vh;
+  padding-top: 1vh;
+
+  .title {
+    font-size: 2.5vh;
+    color: white;
+    padding-bottom: 1.5vh;
+  }
 
   .rselector {
     margin-top: 1vh;
     display: flex;
     flex-wrap: wrap;
     gap: 1vh;
+
+    ::v-deep .el-checkbox__label {
+      color: white;
+      font-size: 1.5vh !important;
+    }
+  }
+
+  .rsubmit {
+    margin-top: 1vh;
+    margin-right: 2vh;
+    display: flex;
+    justify-content: right;
   }
 }
 </style>
