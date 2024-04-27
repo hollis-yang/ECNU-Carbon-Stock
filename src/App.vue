@@ -4,6 +4,7 @@ import { onMounted, ref, markRaw } from 'vue'
 import { useViewerStore } from './store/viewerStore'
 import Layout from './components/Layout.vue'
 import Tree from './components/Tree.vue'
+import Inspector from './components/Inspector.vue'
 
 const containerRef = ref()
 const viewerStore = useViewerStore()
@@ -59,6 +60,7 @@ onMounted(() => {
   </div>
   <div class="left">
     <Tree class="region"></Tree>
+    <Inspector class="inspector"></Inspector>
   </div>
   <div id="cesiumContainer" ref="containerRef">
   </div>
