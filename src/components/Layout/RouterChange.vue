@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div class="container">
     <router-link :to="{ path: '/screen' }">
       <el-button type="primary" plain size="small">
@@ -20,4 +20,4 @@
   margin-top: 0.5vh;
   margin-bottom: 0.5vh;
 }
-</style>
+</style> -->

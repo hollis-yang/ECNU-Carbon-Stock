@@ -2,7 +2,7 @@
   <div class="container">
     <div class="inspector">
       <div class="title">
-        <span>| 树木信息查看器</span>
+        <span>| 树木信息查看</span>
       </div>
       <div class="tlocator">
         <el-input v-model="treeIDInput" style="width: 13vw; margin-right: 2vw;" placeholder="请输入TreeID" />
@@ -17,9 +17,9 @@
       <div class="leftTreeInfo">
         <div class="treeid"><strong>树ID：</strong>{{ treeStore.$state.treeInfo.TreeID }}</div>
         <div class="treelng"><strong>经度：</strong>{{ typeof treeStore.$state.treeInfo.lat === 'number' ?
-          `${treeStore.$state.treeInfo.lat.toFixed(4)}°N` : treeStore.$state.treeInfo.lat }}</div>
+          `${treeStore.$state.treeInfo.lat.toFixed(4)}°E` : treeStore.$state.treeInfo.lat }}</div>
         <div class="treelat"><strong>纬度：</strong>{{ typeof treeStore.$state.treeInfo.lng === 'number' ?
-          `${treeStore.$state.treeInfo.lng.toFixed(5)}°E` : treeStore.$state.treeInfo.lng }}</div>
+          `${treeStore.$state.treeInfo.lng.toFixed(5)}°N` : treeStore.$state.treeInfo.lng }}</div>
         <div class="treeregion"><strong>区域：</strong>{{ treeStore.$state.treeInfo.TreeID === 'Pending ID' ? 'Pending ID'
           : regionName[treeStore.$state.treeInfo.TreeID.split('-')[0] - 1].slice(2) }}</div>
       </div>

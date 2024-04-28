@@ -2,7 +2,7 @@
   <div>
     <div class="region">
       <div class="title">
-        <span>| 区域选择器</span>
+        <span>| 区域选择</span>
       </div>
       <div class="rselector">
         <el-checkbox v-model="regionChecked[0]" label="1 数学楼物理楼" border />

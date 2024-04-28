@@ -2,7 +2,7 @@
   <div>
     <div class="layer">
       <div class="title">
-        <span>| 图层管理器</span>
+        <span>| 图层管理</span>
       </div>
       <div class="lselector">
         <el-radio-group v-model="checkedLayers" :max="1">
