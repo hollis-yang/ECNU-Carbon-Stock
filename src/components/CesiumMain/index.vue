@@ -8,6 +8,7 @@ import RouterChange from '@/components/Layout/RouterChange.vue'
 import Tree from '@/components/Tree.vue'
 import Inspector from '@/components/Inspector.vue'
 import Layer from '@/components/Layer.vue'
+import Copyright from '@/components/Copyright.vue'
 
 const containerRef = ref()
 const viewerStore = useViewerStore()
@@ -64,6 +65,7 @@ onMounted(() => {
     <Tree class="region"></Tree>
     <Inspector class="inspector"></Inspector>
     <Layer class="layer"></Layer>
+    <Copyright class="copyright"></Copyright>
   </div>
   <div class="others">
     <Avatar></Avatar>

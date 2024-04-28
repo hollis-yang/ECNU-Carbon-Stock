@@ -106,9 +106,17 @@ const regionName = [
 // 定位树木
 const locateTree = (treeID) => {
   // 判断treeID是否符合要求
-  const region = treeID.split('-')[0]
-  if (region >= 1 && region <= 8) {
-    getTreeByID(treeID)
+  if (treeID.includes('-')) {
+    const region = treeID.split('-')[0]
+    if (region >= 1 && region <= 8) {
+      getTreeByID(treeID)
+    } else {
+      treeIDAlert.value = 'TreeID错误，请重新输入'
+      treeIDInput.value = ''
+      setTimeout(() => {
+        treeIDAlert.value = ''
+      }, 3000)
+    }
   } else {
     treeIDAlert.value = 'TreeID错误，请重新输入'
     treeIDInput.value = ''

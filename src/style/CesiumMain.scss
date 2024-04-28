@@ -20,13 +20,19 @@
 
   .router-change {
     position: absolute;
-    top: 7vh;
+    top: 8vh;
     left: 13.5vw;
   }
 
   .layer {
     position: absolute;
     bottom: 14vh;
+  }
+
+  .copyright {
+    position: absolute;
+    bottom: 2vh;
+    width: 100%;
   }
 }
 

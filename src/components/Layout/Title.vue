@@ -10,7 +10,7 @@
 <style scoped lang="scss">
 .title {
   padding-top: 1vh;
-  font-size: 3vh;
+  font-size: 3.5vh;
   font-weight: 900;
   color: rgb(46, 196, 246);
   text-align: center;
