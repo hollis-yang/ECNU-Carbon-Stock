@@ -31,6 +31,10 @@ import { getNearestTree } from '@/apis/tree'
 // region选择器状态
 const regionChecked = ref([false, false, false, false, false, false, false, false])
 
+// store
+let viewerStore = useViewerStore()
+let treeStore = useTreeStore()
+
 // 初始化8个区域的3dtiles模型
 let treeTileset1 = null
 let treeTileset2 = null
@@ -40,6 +44,18 @@ let treeTileset5 = null
 let treeTileset6 = null
 let treeTileset7 = null
 let treeTileset8 = null
+
+// 各区域中心点坐标
+const regionCoordinates = [
+  [121.44681913246636, 31.029098145760319],
+  [121.45026388169502, 31.030042737008642],
+  [121.44749186023823, 31.031699694223004],
+  [121.44635467628473, 31.037368250723013],
+  [121.44482821022113, 31.03419766728009],
+  [121.45110166163902, 31.035555521318976],
+  [121.44805465336024, 31.034933204669606],
+  [121.44903111365221, 31.027541102238661]
+]
 
 // 确认选择的区域
 const submitRegion = () => {
@@ -52,12 +68,50 @@ const submitRegion = () => {
   treeTileset6.show = regionChecked.value[5]
   treeTileset7.show = regionChecked.value[6]
   treeTileset8.show = regionChecked.value[7]
+
+  // 视角飞到所选区域的中心
+  // 获得所选区域的下标
+  const regionIndexes = regionChecked.value
+    .map((value, index) => value ? index : -1)
+    .filter(index => index !== -1)
+  console.log(regionIndexes)
+  // 区分所选区域的个数
+  if (regionIndexes.length === 1) {
+    const selectedCoordinates = regionCoordinates[regionIndexes[0]]
+    // 地图定位到树木位置
+    viewerStore.$state.cesiumViewer.camera.flyTo({
+      destination: Cesium.Cartesian3.fromDegrees(selectedCoordinates[0]-0.0006, selectedCoordinates[1], 600),
+      orientation: {
+        heading: Cesium.Math.toRadians(0),
+        pitch: Cesium.Math.toRadians(-90),
+        roll: 0
+      }
+    })
+  } else {
+    const selectedCoordinates = []
+    regionIndexes.forEach(index => {
+      selectedCoordinates.push(regionCoordinates[index][0], regionCoordinates[index][1])
+    })
+    // 确定这些区域的中心
+    const positions = Cesium.Cartesian3.fromDegreesArray(selectedCoordinates)
+    const cartesian = Cesium.BoundingSphere.fromPoints(positions).center
+    const cartographic = Cesium.Cartographic.fromCartesian(cartesian)
+    const lng = Cesium.Math.toDegrees(cartographic.longitude)
+    const lat = Cesium.Math.toDegrees(cartographic.latitude)
+    // 地图定位到树木位置
+    viewerStore.$state.cesiumViewer.camera.flyTo({
+      destination: Cesium.Cartesian3.fromDegrees(lng-0.001, lat, 800),
+      orientation: {
+        heading: Cesium.Math.toRadians(0),
+        pitch: Cesium.Math.toRadians(-90),
+        roll: 0
+      }
+    })
+  }
 }
 
 onMounted(async () => {
-  const viewerStore = await useViewerStore()
-  const treeStore = await useTreeStore()
-
+  viewerStore = await useViewerStore()
   // 加载3dtiles模型
   // treeTileset1 = viewerStore.$state.cesiumViewer.scene.primitives.add(new Cesium.Cesium3DTileset({
   //   url: 'http://localhost:9003/model/t7EgflT0u/tileset.json',
