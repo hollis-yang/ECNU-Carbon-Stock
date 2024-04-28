@@ -35,15 +35,21 @@ const regionChecked = ref([false, false, false, false, false, false, false, fals
 let viewerStore = useViewerStore()
 let treeStore = useTreeStore()
 
-// 初始化8个区域的3dtiles模型
-let treeTileset1 = null
-let treeTileset2 = null
-let treeTileset3 = null
-let treeTileset4 = null
-let treeTileset5 = null
-let treeTileset6 = null
-let treeTileset7 = null
-let treeTileset8 = null
+// 初始化8个区域的3dtiles模型和url
+const treeTilesets = [null, null, null, null, null, null, null, null]
+const treeTilesetUrls = [
+  'http://localhost:9003/model/t7EgflT0u/tileset.json',
+  'http://localhost:9003/model/t7EgflT0u/tileset.json',
+  'http://localhost:9003/model/tqLBvVbc9/tileset.json',
+  'http://localhost:9003/model/tv1d61XW7/tileset.json',
+  'http://localhost:9003/model/trtk1rELn/tileset.json',
+  'http://localhost:9003/model/tqNxQd9Iz/tileset.json',
+  'http://localhost:9003/model/tDzs2ueft/tileset.json',
+  'http://localhost:9003/model/tPTgPPlE6/tileset.json'
+]
+
+// 初始化8个区域灌木的geojson
+const gmGeoJsons= [null, null, null, null, null, null, null, null]
 
 // 各区域中心点坐标
 const regionCoordinates = [
@@ -60,14 +66,22 @@ const regionCoordinates = [
 // 确认选择的区域
 const submitRegion = () => {
   console.log(regionChecked.value)
-  // treeTileset1.show = regionChecked.value[0]
-  treeTileset2.show = regionChecked.value[1]
-  treeTileset3.show = regionChecked.value[2]
-  treeTileset4.show = regionChecked.value[3]
-  treeTileset5.show = regionChecked.value[4]
-  treeTileset6.show = regionChecked.value[5]
-  treeTileset7.show = regionChecked.value[6]
-  treeTileset8.show = regionChecked.value[7]
+  // 显示所选区域的3dtiles模型
+  for (let i = 0; i < 8; i++) {
+    if (regionChecked.value[i]) {
+      treeTilesets[i].show = true
+    } else {
+      treeTilesets[i].show = false
+    }
+  }
+  // 显示所选区域的灌木geojson
+  for (let i = 0; i < 8; i++) {
+    if (regionChecked.value[i]) {
+      gmGeoJsons[i].show = true
+    } else {
+      gmGeoJsons[i].show = false
+    }
+  }
 
   // 视角飞到所选区域的中心
   // 获得所选区域的下标
@@ -113,45 +127,24 @@ const submitRegion = () => {
 onMounted(async () => {
   viewerStore = await useViewerStore()
   // 加载3dtiles模型
-  // treeTileset1 = viewerStore.$state.cesiumViewer.scene.primitives.add(new Cesium.Cesium3DTileset({
-  //   url: 'http://localhost:9003/model/t7EgflT0u/tileset.json',
-  // }))
-  // treeTileset1.show = false
+  for (let i = 0; i < 8; i++) {
+    treeTilesets[i] = await viewerStore.$state.cesiumViewer.scene.primitives.add(new Cesium.Cesium3DTileset({
+      url: treeTilesetUrls[i]
+    }))
+    treeTilesets[i].show = false
+  }
 
-  treeTileset2 = viewerStore.$state.cesiumViewer.scene.primitives.add(new Cesium.Cesium3DTileset({
-    url: 'http://localhost:9003/model/t7EgflT0u/tileset.json',
-  }))
-  treeTileset2.show = false
+  // 加载灌木geojson
+  for (let i = 0; i < 8; i ++) {
+    gmGeoJsons[i] = await Cesium.GeoJsonDataSource.load(`/g${i + 1}.geojson`, {
+      stroke: Cesium.Color.WHITE,   // 边框颜色
+      fill: Cesium.Color.GREEN.withAlpha(1),  // 填充颜色
+      strokeWidth: 0, // 边框宽度
+    })
+    viewerStore.$state.cesiumViewer.dataSources.add(gmGeoJsons[i])
+    gmGeoJsons[i].show = false
+  }
 
-  treeTileset3 = viewerStore.$state.cesiumViewer.scene.primitives.add(new Cesium.Cesium3DTileset({
-    url: 'http://localhost:9003/model/tqLBvVbc9/tileset.json',
-  }))
-  treeTileset3.show = false
-
-  treeTileset4 = viewerStore.$state.cesiumViewer.scene.primitives.add(new Cesium.Cesium3DTileset({
-    url: 'http://localhost:9003/model/tv1d61XW7/tileset.json',
-  }))
-  treeTileset4.show = false
-
-  treeTileset5 = viewerStore.$state.cesiumViewer.scene.primitives.add(new Cesium.Cesium3DTileset({
-    url: 'http://localhost:9003/model/trtk1rELn/tileset.json',
-  }))
-  treeTileset5.show = false
-
-  treeTileset6 = viewerStore.$state.cesiumViewer.scene.primitives.add(new Cesium.Cesium3DTileset({
-    url: 'http://localhost:9003/model/tqNxQd9Iz/tileset.json',
-  }))
-  treeTileset6.show = false
-
-  treeTileset7 = viewerStore.$state.cesiumViewer.scene.primitives.add(new Cesium.Cesium3DTileset({
-    url: 'http://localhost:9003/model/tDzs2ueft/tileset.json',
-  }))
-  treeTileset7.show = false
-
-  treeTileset8 = viewerStore.$state.cesiumViewer.scene.primitives.add(new Cesium.Cesium3DTileset({
-    url: 'http://localhost:9003/model/tPTgPPlE6/tileset.json',
-  }))
-  treeTileset8.show = false
 
 
   // 创建事件处理器实例
