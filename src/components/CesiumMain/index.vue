@@ -4,7 +4,6 @@ import { onMounted, ref, markRaw } from 'vue'
 import { useViewerStore } from '@/store/viewerStore'
 import Title from '@/components/Layout/Title.vue'
 import Avatar from '@/components/Layout/Avatar.vue'
-// import RouterChange from '@/components/Layout/RouterChange.vue'
 import Tree from '@/components/Tree.vue'
 import Inspector from '@/components/Inspector.vue'
 import Layer from '@/components/Layer.vue'
@@ -61,7 +60,6 @@ onMounted(() => {
 <template>
   <div class="left">
     <Title class="title"></Title>
-    <!-- <RouterChange class="router-change"></RouterChange> -->
     <Tree class="region"></Tree>
     <Inspector class="inspector"></Inspector>
     <Layer class="layer"></Layer>
