@@ -80,7 +80,7 @@ const submitRegion = () => {
     const selectedCoordinates = regionCoordinates[regionIndexes[0]]
     // 地图定位到树木位置
     viewerStore.$state.cesiumViewer.camera.flyTo({
-      destination: Cesium.Cartesian3.fromDegrees(selectedCoordinates[0]-0.0006, selectedCoordinates[1], 600),
+      destination: Cesium.Cartesian3.fromDegrees(selectedCoordinates[0] - 0.0006, selectedCoordinates[1], 600),
       orientation: {
         heading: Cesium.Math.toRadians(0),
         pitch: Cesium.Math.toRadians(-90),
@@ -100,7 +100,7 @@ const submitRegion = () => {
     const lat = Cesium.Math.toDegrees(cartographic.latitude)
     // 地图定位到树木位置
     viewerStore.$state.cesiumViewer.camera.flyTo({
-      destination: Cesium.Cartesian3.fromDegrees(lng-0.001, lat, 800),
+      destination: Cesium.Cartesian3.fromDegrees(lng - 0.001, lat, 800),
       orientation: {
         heading: Cesium.Math.toRadians(0),
         pitch: Cesium.Math.toRadians(-90),
