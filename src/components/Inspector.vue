@@ -12,7 +12,7 @@
         {{ treeIDAlert }}
       </div>
       <div class="avatar">
-        <el-avatar :size="80" src="/tree.png"></el-avatar>
+        <el-avatar :size="70" src="/tree.png"></el-avatar>
       </div>
       <div class="leftTreeInfo">
         <div class="treeid"><strong>树ID：</strong>{{ treeStore.$state.treeInfo.TreeID }}</div>
@@ -24,7 +24,7 @@
           : regionName[treeStore.$state.treeInfo.TreeID.split('-')[0] - 1].slice(2) }}</div>
       </div>
       <div class="rightTreeInfo">
-        <el-descriptions :column="1" size="default" border>
+        <el-descriptions :column="1" size="small" border>
           <el-descriptions-item label-class-name="my-label" class-name="my-content" align="center">
             <template #label>
               <div class="cell-item">
