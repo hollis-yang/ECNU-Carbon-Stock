@@ -8,6 +8,9 @@
         <el-input v-model="treeIDInput" style="width: 10vw; margin-right: 2vw;" placeholder="请输入TreeID" />
         <el-button type="primary" @click="locateTree(treeIDInput)">定位</el-button>
       </div>
+      <div class="talert">
+        {{ treeIDAlert }}
+      </div>
     </div>
   </div>
 </template>
@@ -21,11 +24,26 @@ import { getTreeInfo } from '@/apis/tree'
 
 
 const treeIDInput = ref('')
+const treeIDAlert = ref('')
 const viewerStore = useViewerStore()
 const treeStore = useTreeStore()
 
 // 定位树木
-const locateTree = async (treeID) => {
+const locateTree = (treeID) => {
+  // 判断treeID是否符合要求
+  const region = treeID.split('-')[0]
+  if (region >= 1 && region <= 8) {
+    getTreeByID(treeID)
+  } else {
+    treeIDAlert.value = 'TreeID错误，请重新输入'
+    treeIDInput.value = ''
+    setTimeout(() => {
+      treeIDAlert.value = ''
+    }, 2000)
+  }
+}
+
+const getTreeByID = async (treeID) => {
   // 调用接口定位树木
   const treeInfo = await getTreeInfo(treeID)
   console.log(treeInfo[0].lng, treeInfo[0].lat)
