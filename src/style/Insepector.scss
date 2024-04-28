@@ -13,32 +13,26 @@
     font-size: 2vh;
     color: red;
     margin-top: 0.5vh;
+    margin-bottom: -1vh;
   }
 
-  .avatar {
-    position: absolute;
-    top: 46.8vh;
-    left: 4vw;
-  }
+  .treeInfo {
+    display: flex;
+    margin-top: 1.5vh;
+    justify-content: center;
 
-  .leftTreeInfo {
-    text-align: center;
-    position: absolute;
-    top: 57vh;
-    left: 2.2vw;
-    font-size: 2.2vh;
+    .leftTreeInfo {
+      flex: 1;
 
-    .treeid, .treelng, .treelat, .treeregion {
-      margin-top: 0.5vh;
+      .avatar {
+        margin-bottom: 1vh;
+      }
     }
-  }
 
-  .rightTreeInfo {
-    text-align: center;
-    position: absolute;
-    top: 48vh;
-    left: 13vw;
-    width: 15.5vw;
+    .rightTreeInfo {
+      flex: 1.3;
+      padding-right: 1vw;
+    }
   }
 }
 

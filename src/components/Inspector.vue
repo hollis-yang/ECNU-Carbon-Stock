@@ -8,72 +8,76 @@
         <el-input v-model="treeIDInput" style="width: 13vw; margin-right: 2vw;" placeholder="请输入TreeID" />
         <el-button type="primary" @click="locateTree(treeIDInput)">定位</el-button>
       </div>
-      <div class="talert">
+      <div class="talert" v-show="treeIDAlert">
         {{ treeIDAlert }}
       </div>
-      <div class="avatar">
-        <el-avatar :size="70" src="/tree.png"></el-avatar>
-      </div>
-      <div class="leftTreeInfo">
-        <div class="treeid"><strong>树ID：</strong>{{ treeStore.$state.treeInfo.TreeID }}</div>
-        <div class="treelng"><strong>经度：</strong>{{ typeof treeStore.$state.treeInfo.lat === 'number' ?
-          `${treeStore.$state.treeInfo.lat.toFixed(4)}°E` : treeStore.$state.treeInfo.lat }}</div>
-        <div class="treelat"><strong>纬度：</strong>{{ typeof treeStore.$state.treeInfo.lng === 'number' ?
-          `${treeStore.$state.treeInfo.lng.toFixed(5)}°N` : treeStore.$state.treeInfo.lng }}</div>
-        <div class="treeregion"><strong>区域：</strong>{{ treeStore.$state.treeInfo.TreeID === 'Pending ID' ? 'Pending ID'
-          : regionName[treeStore.$state.treeInfo.TreeID.split('-')[0] - 1].slice(2) }}</div>
-      </div>
-      <div class="rightTreeInfo">
-        <el-descriptions :column="1" size="small" border>
-          <el-descriptions-item label-class-name="my-label" class-name="my-content" align="center">
-            <template #label>
-              <div class="cell-item">
-                Carbon Stock (kg)
-              </div>
-            </template>
-            {{ treeStore.$state.treeInfo.Carbon.toFixed(3) }}
-          </el-descriptions-item>
-          <el-descriptions-item label-class-name="my-label" align="center">
-            <template #label>
-              <div class="cell-item">
-                Tree Height (m)
-              </div>
-            </template>
-            {{ treeStore.$state.treeInfo.TreeHeight.toFixed(3) }}
-          </el-descriptions-item>
-          <el-descriptions-item label-class-name="my-label" class-name="my-content" align="center">
-            <template #label>
-              <div class="cell-item">
-                DBH (m)
-              </div>
-            </template>
-            {{ treeStore.$state.treeInfo.DBH.toFixed(3) }}
-          </el-descriptions-item>
-          <el-descriptions-item label-class-name="my-label" class-name="my-content" align="center">
-            <template #label>
-              <div class="cell-item">
-                Crown Area (m²)
-              </div>
-            </template>
-            {{ treeStore.$state.treeInfo.CrownArea.toFixed(3) }}
-          </el-descriptions-item>
-          <el-descriptions-item label-class-name="my-label" class-name="my-content" align="center">
-            <template #label>
-              <div class="cell-item">
-                Crown Diameter (m)
-              </div>
-            </template>
-            {{ treeStore.$state.treeInfo.CrownDiameter.toFixed(3) }}
-          </el-descriptions-item>
-          <el-descriptions-item label-class-name="my-label" class-name="my-content" align="center">
-            <template #label>
-              <div class="cell-item">
-                Crown Volume (m³)
-              </div>
-            </template>
-            {{ treeStore.$state.treeInfo.CrownVolume.toFixed(3) }}
-          </el-descriptions-item>
-        </el-descriptions>
+      <div class="treeInfo">
+        <div class="leftTreeInfo">
+          <div class="avatar">
+            <el-avatar :size="70" src="/tree.png"></el-avatar>
+          </div>
+          <div class="info">
+            <div class="treeid"><strong>树ID：</strong>{{ treeStore.$state.treeInfo.TreeID }}</div>
+            <div class="treelng"><strong>经度：</strong>{{ typeof treeStore.$state.treeInfo.lat === 'number' ?
+              `${treeStore.$state.treeInfo.lat.toFixed(4)}°E` : treeStore.$state.treeInfo.lat }}</div>
+            <div class="treelat"><strong>纬度：</strong>{{ typeof treeStore.$state.treeInfo.lng === 'number' ?
+              `${treeStore.$state.treeInfo.lng.toFixed(5)}°N` : treeStore.$state.treeInfo.lng }}</div>
+            <div class="treeregion"><strong>区域：</strong>{{ treeStore.$state.treeInfo.TreeID === 'Pending ID' ?
+              'Pending ID' : regionName[treeStore.$state.treeInfo.TreeID.split('-')[0] - 1].slice(2) }}</div>
+          </div>
+        </div>
+        <div class="rightTreeInfo">
+          <el-descriptions :column="1" size="small" border>
+            <el-descriptions-item label-class-name="my-label" class-name="my-content" align="center">
+              <template #label>
+                <div class="cell-item">
+                  Carbon Stock (kg)
+                </div>
+              </template>
+              {{ treeStore.$state.treeInfo.Carbon.toFixed(3) }}
+            </el-descriptions-item>
+            <el-descriptions-item label-class-name="my-label" align="center">
+              <template #label>
+                <div class="cell-item">
+                  Tree Height (m)
+                </div>
+              </template>
+              {{ treeStore.$state.treeInfo.TreeHeight.toFixed(3) }}
+            </el-descriptions-item>
+            <el-descriptions-item label-class-name="my-label" class-name="my-content" align="center">
+              <template #label>
+                <div class="cell-item">
+                  DBH (m)
+                </div>
+              </template>
+              {{ treeStore.$state.treeInfo.DBH.toFixed(3) }}
+            </el-descriptions-item>
+            <el-descriptions-item label-class-name="my-label" class-name="my-content" align="center">
+              <template #label>
+                <div class="cell-item">
+                  Crown Area (m²)
+                </div>
+              </template>
+              {{ treeStore.$state.treeInfo.CrownArea.toFixed(3) }}
+            </el-descriptions-item>
+            <el-descriptions-item label-class-name="my-label" class-name="my-content" align="center">
+              <template #label>
+                <div class="cell-item">
+                  Crown Diameter (m)
+                </div>
+              </template>
+              {{ treeStore.$state.treeInfo.CrownDiameter.toFixed(3) }}
+            </el-descriptions-item>
+            <el-descriptions-item label-class-name="my-label" class-name="my-content" align="center">
+              <template #label>
+                <div class="cell-item">
+                  Crown Volume (m³)
+                </div>
+              </template>
+              {{ treeStore.$state.treeInfo.CrownVolume.toFixed(3) }}
+            </el-descriptions-item>
+          </el-descriptions>
+        </div>
       </div>
     </div>
   </div>
