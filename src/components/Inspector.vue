@@ -12,7 +12,7 @@
         {{ treeIDAlert }}
       </div>
       <div class="avatar">
-        <el-avatar :size="75" src="/tree.png"></el-avatar>
+        <el-avatar :size="80" src="/tree.png"></el-avatar>
       </div>
       <div class="leftTreeInfo">
         <div class="treeid"><strong>树ID：</strong>{{ treeStore.$state.treeInfo.TreeID }}</div>
@@ -20,6 +20,60 @@
           `${treeStore.$state.treeInfo.lat.toFixed(4)}°N` : treeStore.$state.treeInfo.lat }}</div>
         <div class="treelat"><strong>纬度：</strong>{{ typeof treeStore.$state.treeInfo.lng === 'number' ?
           `${treeStore.$state.treeInfo.lng.toFixed(5)}°E` : treeStore.$state.treeInfo.lng }}</div>
+        <div class="treeregion"><strong>区域：</strong>{{ treeStore.$state.treeInfo.TreeID === 'Pending ID' ? 'Pending ID'
+          : regionName[treeStore.$state.treeInfo.TreeID.split('-')[0] - 1].slice(2) }}</div>
+      </div>
+      <div class="rightTreeInfo">
+        <el-descriptions :column="1" size="default" border>
+          <el-descriptions-item label-class-name="my-label" class-name="my-content" align="center">
+            <template #label>
+              <div class="cell-item">
+                Carbon Stock (kg)
+              </div>
+            </template>
+            {{ treeStore.$state.treeInfo.Carbon.toFixed(3) }}
+          </el-descriptions-item>
+          <el-descriptions-item label-class-name="my-label" align="center">
+            <template #label>
+              <div class="cell-item">
+                Tree Height (m)
+              </div>
+            </template>
+            {{ treeStore.$state.treeInfo.TreeHeight.toFixed(3) }}
+          </el-descriptions-item>
+          <el-descriptions-item label-class-name="my-label" class-name="my-content" align="center">
+            <template #label>
+              <div class="cell-item">
+                DBH (m)
+              </div>
+            </template>
+            {{ treeStore.$state.treeInfo.DBH.toFixed(3) }}
+          </el-descriptions-item>
+          <el-descriptions-item label-class-name="my-label" class-name="my-content" align="center">
+            <template #label>
+              <div class="cell-item">
+                Crown Area (m²)
+              </div>
+            </template>
+            {{ treeStore.$state.treeInfo.CrownArea.toFixed(3) }}
+          </el-descriptions-item>
+          <el-descriptions-item label-class-name="my-label" class-name="my-content" align="center">
+            <template #label>
+              <div class="cell-item">
+                Crown Diameter (m)
+              </div>
+            </template>
+            {{ treeStore.$state.treeInfo.CrownDiameter.toFixed(3) }}
+          </el-descriptions-item>
+          <el-descriptions-item label-class-name="my-label" class-name="my-content" align="center">
+            <template #label>
+              <div class="cell-item">
+                Crown Volume (m³)
+              </div>
+            </template>
+            {{ treeStore.$state.treeInfo.CrownVolume.toFixed(3) }}
+          </el-descriptions-item>
+        </el-descriptions>
       </div>
     </div>
   </div>
@@ -37,6 +91,17 @@ const treeIDInput = ref('')
 const treeIDAlert = ref('')
 const viewerStore = useViewerStore()
 const treeStore = useTreeStore()
+
+const regionName = [
+  '1 数学楼物理楼',
+  '2 文科楼区域',
+  '3 图书馆教学楼',
+  '4 本科生宿舍',
+  '5 西操资环生科',
+  '6 东操夏雨厅',
+  '7 ABC楼音乐楼',
+  '8 河口行政楼'
+]
 
 // 定位树木
 const locateTree = (treeID) => {

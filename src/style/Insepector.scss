@@ -17,15 +17,48 @@
 
   .avatar {
     position: absolute;
-    top: 44vh;
-    left: 3.5vw;
+    top: 46vh;
+    left: 4vw;
   }
 
   .leftTreeInfo {
     text-align: center;
     position: absolute;
-    top: 54vh;
+    top: 57vh;
     left: 2.2vw;
+    font-size: 2.2vh;
+
+    .treeid, .treelng, .treelat, .treeregion {
+      margin-top: 0.5vh;
+    }
+  }
+
+  .rightTreeInfo {
+    text-align: center;
+    position: absolute;
+    top: 44vh;
+    left: 13vw;
     font-size: 2vh;
+    width: 15.5vw;
   }
 }
+
+:deep(.my-label) {
+  background: var(--el-color-success-light-9) !important;
+  color: rgba(0, 0, 0, 0.7) !important;
+  font-size: 1.75vh !important;
+}
+
+:deep(.my-content) {
+  font-size: 1.75vh !important;
+}
+
+
+
+// ::deep .my-content {
+//   background: transparent !important;
+// }
+
+// ::deep .el-descriptions__body {
+//   border-radius: 1vw;
+// }

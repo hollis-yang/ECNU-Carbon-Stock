@@ -7,14 +7,14 @@ export const useTreeStore = defineStore({
       Carbon: 0,
       CrownArea: 0,
       CrownDiameter: 0,
-      CrownVolumn: 0,
+      CrownVolume: 0,
       DBH: 0,
       TreeHeight: 0,
-      TreeID: 'Pending',
+      TreeID: 'Pending ID',
       TreeLocationX: 0,
       TreeLocationY: 0,
-      lat: 'Pending',
-      lng: 'Pending'
+      lat: 'Pending ID',
+      lng: 'Pending ID'
     },
     selectedTree: null
   }),
