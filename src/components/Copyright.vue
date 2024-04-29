@@ -13,7 +13,7 @@
 .container {
   font-size: 1.5vh;
   text-align: center;
-  line-height: 2vh;
+  line-height: 1.8vh;
 
   .name {
     text-align: right;

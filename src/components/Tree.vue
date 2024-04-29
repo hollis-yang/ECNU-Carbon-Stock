@@ -31,16 +31,16 @@ import { regionCoordinates } from '@/utils/region'
 import { treeTilesetUrls } from '@/utils/tileset'
 
 // region选择器状态
-const regionChecked = ref([false, false, false, false, false, false, false, false])
+const regionChecked = ref(new Array(8).fill(false))
 
 // store
 let viewerStore = useViewerStore()
 let treeStore = useTreeStore()
 
 // 初始化8个区域的3dtiles模型
-const treeTilesets = [null, null, null, null, null, null, null, null]
+const treeTilesets = new Array(8).fill(null)
 // 初始化8个区域灌木的geojson
-const gmGeoJsons= [null, null, null, null, null, null, null, null]
+const gmGeoJsons= new Array(8).fill(null)
 
 
 // 确认选择的区域
@@ -136,6 +136,8 @@ onMounted(async () => {
   handler.setInputAction(async (click) => {
     const scene = viewerStore.$state.cesiumViewer.scene
     const pickedFeature = scene.pick(click.position)
+
+    console.log(pickedFeature)
 
     if (pickedFeature instanceof Cesium.Cesium3DTileFeature) {
       // 获取点击位置的世界坐标
