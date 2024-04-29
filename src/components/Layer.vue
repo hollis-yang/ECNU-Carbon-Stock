@@ -28,17 +28,29 @@
         </el-radio-group>
         <!-- 多选框 -->
         <el-checkbox-group v-model="checkedLayers2" style="margin-top: 1.3vh;">
-          <el-checkbox-button value="各区域边界">
+          <el-checkbox-button value="区域边界">
             <el-icon :size="15" style="vertical-align: middle; margin-right: 0.3vw; margin-left: -0.3vw;">
               <FullScreen />
             </el-icon>
-            <span style="vertical-align: middle">各区域边界</span>
+            <span style="vertical-align: middle">区域边界</span>
           </el-checkbox-button>
-          <el-checkbox-button value="建筑物模型">
+          <el-checkbox-button value="区域注记">
+            <el-icon :size="15" style="vertical-align: middle; margin-right: 0.3vw; margin-left: -0.3vw;">
+              <FullScreen />
+            </el-icon>
+            <span style="vertical-align: middle">注记</span>
+          </el-checkbox-button>
+          <el-checkbox-button value="建筑模型">
             <el-icon :size="15" style="vertical-align: middle; margin-right: 0.3vw; margin-left: -0.3vw;">
               <OfficeBuilding />
             </el-icon>
-            <span style="vertical-align: middle">建筑物模型</span>
+            <span style="vertical-align: middle">建筑模型</span>
+          </el-checkbox-button>
+          <el-checkbox-button value="建筑注记">
+            <el-icon :size="15" style="vertical-align: middle; margin-right: 0.3vw; margin-left: -0.3vw;">
+              <OfficeBuilding />
+            </el-icon>
+            <span style="vertical-align: middle">注记</span>
           </el-checkbox-button>
         </el-checkbox-group>
       </div>
@@ -52,7 +64,7 @@ import * as Cesium from 'cesium'
 import { useViewerStore } from '@/store/viewerStore'
 
 const checkedLayers1 = ref('无地图')
-const checkedLayers2 = ref(['各区域边界', '建筑物模型'])
+const checkedLayers2 = ref(['区域边界', '区域注记', '建筑模型'])
 const viewerStore = useViewerStore()
 
 // 需要加载的数据们
@@ -100,26 +112,30 @@ watch(checkedLayers1, (newVal, oldVal) => {
 watch(checkedLayers2, (newVal, oldVal) => {
   console.log('当前选中的图层2：', newVal)
   // 区域边界
-  if (newVal.includes('各区域边界')) {
-    // region
+  if (newVal.includes('区域边界')) {
     regionGeoJSON.show = true
-    // label
+  } else {
+    regionGeoJSON.show = false
+  }
+  // 区域注记
+  if (newVal.includes('区域注记')) {
     for (let i = 0; i <= 7; i++) {
-      viewerStore.$state.cesiumViewer.entities.getById(regionName[i]).show = true
+      viewerStore.$state.cesiumViewer.entities.getById(regionName[i]).label.show = true
     }
   } else {
-    // region
-    regionGeoJSON.show = false
-    // label
     for (let i = 0; i <= 7; i++) {
-      viewerStore.$state.cesiumViewer.entities.getById(regionName[i]).show = false
+      viewerStore.$state.cesiumViewer.entities.getById(regionName[i]).label.show = false
     }
   }
   // 建筑物3dtiles
-  if (newVal.includes('建筑物模型')) {
+  if (newVal.includes('建筑模型')) {
     buildingTileset.show = true
   } else {
     buildingTileset.show = false
+  }
+  // 建筑物注记
+  if (newVal.includes('建筑注记')) {
+    console.log('建筑注记被选中了')
   }
 }, { deep: true })  // 监视数组/对象内部值的变化
 
