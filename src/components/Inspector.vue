@@ -89,23 +89,13 @@ import { ref } from 'vue'
 import { useViewerStore } from '@/store/viewerStore'
 import { useTreeStore } from '@/store/treeStore'
 import { getTreeInfo } from '@/apis/tree'
-
+import { regionName } from '@/utils/region'
 
 const treeIDInput = ref('')
 const treeIDAlert = ref('')
 const viewerStore = useViewerStore()
 const treeStore = useTreeStore()
 
-const regionName = [
-  '1 数学楼物理楼',
-  '2 文科楼区域',
-  '3 图书馆教学楼',
-  '4 本科生宿舍',
-  '5 西操资环生科',
-  '6 东操夏雨厅',
-  '7 ABC楼音乐楼',
-  '8 河口行政楼'
-]
 
 // 定位树木
 const locateTree = (treeID) => {

@@ -27,6 +27,8 @@ import { useViewerStore } from '@/store/viewerStore'
 import { useTreeStore } from '@/store/treeStore'
 import { onMounted, ref } from 'vue'
 import { getNearestTree } from '@/apis/tree'
+import { regionCoordinates } from '@/utils/region'
+import { treeTilesetUrls } from '@/utils/tileset'
 
 // region选择器状态
 const regionChecked = ref([false, false, false, false, false, false, false, false])
@@ -35,33 +37,11 @@ const regionChecked = ref([false, false, false, false, false, false, false, fals
 let viewerStore = useViewerStore()
 let treeStore = useTreeStore()
 
-// 初始化8个区域的3dtiles模型和url
+// 初始化8个区域的3dtiles模型
 const treeTilesets = [null, null, null, null, null, null, null, null]
-const treeTilesetUrls = [
-  'http://localhost:9003/model/t7EgflT0u/tileset.json',
-  'http://localhost:9003/model/t7EgflT0u/tileset.json',
-  'http://localhost:9003/model/tqLBvVbc9/tileset.json',
-  'http://localhost:9003/model/tv1d61XW7/tileset.json',
-  'http://localhost:9003/model/trtk1rELn/tileset.json',
-  'http://localhost:9003/model/tqNxQd9Iz/tileset.json',
-  'http://localhost:9003/model/tDzs2ueft/tileset.json',
-  'http://localhost:9003/model/tPTgPPlE6/tileset.json'
-]
-
 // 初始化8个区域灌木的geojson
 const gmGeoJsons= [null, null, null, null, null, null, null, null]
 
-// 各区域中心点坐标
-const regionCoordinates = [
-  [121.44681913246636, 31.029098145760319],
-  [121.45026388169502, 31.030042737008642],
-  [121.44749186023823, 31.031699694223004],
-  [121.44635467628473, 31.037368250723013],
-  [121.44482821022113, 31.03419766728009],
-  [121.45110166163902, 31.035555521318976],
-  [121.44805465336024, 31.034933204669606],
-  [121.44903111365221, 31.027541102238661]
-]
 
 // 确认选择的区域
 const submitRegion = () => {

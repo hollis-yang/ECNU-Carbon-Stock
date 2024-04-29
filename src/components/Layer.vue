@@ -62,6 +62,7 @@
 import { ref, watch, onMounted } from 'vue'
 import * as Cesium from 'cesium'
 import { useViewerStore } from '@/store/viewerStore'
+import { regionCoordinates, regionName } from '@/utils/region'
 
 const checkedLayers1 = ref('无地图')
 const checkedLayers2 = ref(['区域边界', '区域注记', '建筑模型'])
@@ -72,27 +73,6 @@ let regionGeoJSON = null
 let regionLabel = [null, null, null, null, null, null, null, null]
 let buildingTileset = null
 
-// regionLabel的内容准备
-const regionName = [
-  '1 数学楼物理楼',
-  '2 文科楼区域',
-  '3 图书馆教学楼',
-  '4 本科生宿舍',
-  '5 西操资环生科',
-  '6 东操夏雨厅',
-  '7 ABC楼音乐楼',
-  '8 河口行政楼'
-]
-const regionCoordinates = [
-  [121.44681913246636, 31.029098145760319],
-  [121.45026388169502, 31.030042737008642],
-  [121.44749186023823, 31.031699694223004],
-  [121.44635467628473, 31.037368250723013],
-  [121.44482821022113, 31.03419766728009],
-  [121.45110166163902, 31.035555521318976],
-  [121.44805465336024, 31.034933204669606],
-  [121.44903111365221, 31.027541102238661]
-]
 
 // 监听单选框的变化
 watch(checkedLayers1, (newVal, oldVal) => {
