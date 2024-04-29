@@ -73,7 +73,7 @@ const viewerStore = useViewerStore()
 let regionGeoJSON = null
 let regionLabel = new Array(8).fill(null)
 let buildingTileset = null
-let buildingLabel = new Array(54).fill(null)
+let buildingLabel = new Array(53).fill(null)
 
 
 // 监听单选框的变化
@@ -117,11 +117,11 @@ watch(checkedLayers2, (newVal, oldVal) => {
   }
   // 建筑物注记
   if (newVal.includes('建筑注记')) {
-    for (let i = 0; i < 54; i++) {
+    for (let i = 0; i < 53; i++) {
       viewerStore.$state.cesiumViewer.entities.getById(buildingName[i]).label.show = true
     }
   } else {
-    for (let i = 0; i < 54; i++) {
+    for (let i = 0; i < 53; i++) {
       viewerStore.$state.cesiumViewer.entities.getById(buildingName[i]).label.show = false
     }
   }
@@ -146,12 +146,9 @@ onMounted(async () => {
         text: regionName[i],
         font: '2vh sans-serif',
         fillColor: Cesium.Color.WHITE,
-        outlineColor: Cesium.Color.BLACK,
-        outlineWidth: 1,
-        style: Cesium.LabelStyle.FILL_AND_OUTLINE,
         heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
         showBackground: true,
-        backgroundColor: Cesium.Color.fromCssColorString('rgba(0, 0, 0, 0.5)'),
+        backgroundColor: Cesium.Color.fromCssColorString('rgba(0, 0, 0, 0.4)'),
         backgroundPadding: new Cesium.Cartesian2(5, 5),
       }
     })
@@ -163,19 +160,15 @@ onMounted(async () => {
   }))
 
   // 加载building name
-  for (let i = 0; i < 54; i++) {
+  for (let i = 0; i < 53; i++) {
     viewerStore.$state.cesiumViewer.entities.add({
       id: buildingName[i],
       position: Cesium.Cartesian3.fromDegrees(buildingCoordinates[i][0], buildingCoordinates[i][1]),
       label: {
         text: buildingName[i],
-        font: '1.5vh sans-serif',
-        fillColor: Cesium.Color.WHITE,
-        style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+        font: '1.75vh sans-serif',
+        fillColor: Cesium.Color.BLACK,
         heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
-        showBackground: true,
-        backgroundColor: Cesium.Color.fromCssColorString('rgba(0, 0, 0, 0.5)'),
-        backgroundPadding: new Cesium.Cartesian2(0.5, 0.5),
       }
     })
     viewerStore.$state.cesiumViewer.entities.getById(buildingName[i]).label.show = false
