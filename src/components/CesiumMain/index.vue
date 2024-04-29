@@ -17,7 +17,7 @@ onMounted(() => {
 
   const viewer = new Cesium.Viewer(containerRef.value, {
     animation: false,
-    // baseLayerPicker: false,
+    baseLayerPicker: false,
     fullscreenButton: false,
     vrButton: false,
     geocoder: false,
@@ -30,6 +30,20 @@ onMounted(() => {
     navigationInstructionsInitiallyVisible: false,
   })
   viewer._cesiumWidget._creditContainer.style.display = 'none'
+
+  // 切换底图为天地图影像
+  const webKey = '7b13a4031f051b6317cdcca67ae391f1'
+  viewer.imageryLayers.addImageryProvider(
+    new Cesium.WebMapTileServiceImageryProvider({
+      // 影像
+      url: 'http://t0.tianditu.com/img_w/wmts?tk=' + webKey,
+      layer: 'img',
+      style: 'default',
+      format: 'tiles',
+      tileMatrixSetID: 'w',
+      maximumLevel: 18,
+    })
+  )
 
   // 相机最大缩放距离
   viewer.scene.screenSpaceCameraController.maximumZoomDistance = 3000
