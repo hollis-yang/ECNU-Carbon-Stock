@@ -63,6 +63,7 @@ import { ref, watch, onMounted } from 'vue'
 import * as Cesium from 'cesium'
 import { useViewerStore } from '@/store/viewerStore'
 import { regionCoordinates, regionName } from '@/utils/region'
+import { buildingCoordinates, buildingName } from '@/utils/building'
 
 const checkedLayers1 = ref('无地图')
 const checkedLayers2 = ref(['区域边界', '区域注记', '建筑模型'])
@@ -70,8 +71,9 @@ const viewerStore = useViewerStore()
 
 // 需要加载的数据们
 let regionGeoJSON = null
-let regionLabel = [null, null, null, null, null, null, null, null]
+let regionLabel = new Array(8).fill(null)
 let buildingTileset = null
+let buildingLabel = new Array(54).fill(null)
 
 
 // 监听单选框的变化
@@ -115,7 +117,13 @@ watch(checkedLayers2, (newVal, oldVal) => {
   }
   // 建筑物注记
   if (newVal.includes('建筑注记')) {
-    console.log('建筑注记被选中了')
+    for (let i = 0; i < 54; i++) {
+      viewerStore.$state.cesiumViewer.entities.getById(buildingName[i]).label.show = true
+    }
+  } else {
+    for (let i = 0; i < 54; i++) {
+      viewerStore.$state.cesiumViewer.entities.getById(buildingName[i]).label.show = false
+    }
   }
 }, { deep: true })  // 监视数组/对象内部值的变化
 
@@ -153,6 +161,25 @@ onMounted(async () => {
   buildingTileset = await viewerStore.$state.cesiumViewer.scene.primitives.add(new Cesium.Cesium3DTileset({
     url: 'http://localhost:9003/model/tJvV7KtGv/tileset.json'
   }))
+
+  // 加载building name
+  for (let i = 0; i < 54; i++) {
+    viewerStore.$state.cesiumViewer.entities.add({
+      id: buildingName[i],
+      position: Cesium.Cartesian3.fromDegrees(buildingCoordinates[i][0], buildingCoordinates[i][1]),
+      label: {
+        text: buildingName[i],
+        font: '1.5vh sans-serif',
+        fillColor: Cesium.Color.WHITE,
+        style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+        heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
+        showBackground: true,
+        backgroundColor: Cesium.Color.fromCssColorString('rgba(0, 0, 0, 0.5)'),
+        backgroundPadding: new Cesium.Cartesian2(0.5, 0.5),
+      }
+    })
+    viewerStore.$state.cesiumViewer.entities.getById(buildingName[i]).label.show = false
+  }
 })
 </script>
 
