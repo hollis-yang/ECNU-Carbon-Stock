@@ -5,26 +5,42 @@
         <span>| 图层管理</span>
       </div>
       <div class="lselector">
-        <el-radio-group v-model="checkedLayers" :max="1">
-          <el-radio-button value="格网碳储量">
+        <!-- 单选框 -->
+        <el-radio-group v-model="checkedLayers1" :max="1">
+          <el-radio-button value="碳储量格网地图">
             <el-icon :size="15" style="vertical-align: middle; margin-right: 0.3vw; margin-left: -0.3vw;">
               <Grid />
             </el-icon>
-            <span style="vertical-align: middle">格网碳储量</span>
+            <span style="vertical-align: middle">碳储量格网地图</span>
           </el-radio-button>
-          <el-radio-button value="区域碳储量">
+          <el-radio-button value="区域碳储量地图">
             <el-icon :size="15" style="vertical-align: middle; margin-right: 0.3vw; margin-left: -0.3vw;">
               <Picture />
             </el-icon>
-            <span style="vertical-align: middle">区域碳储量</span>
+            <span style="vertical-align: middle">区域碳储量地图</span>
           </el-radio-button>
-          <el-radio-button value="区域边界">
+          <el-radio-button value="无地图">
+            <el-icon :size="15" style="vertical-align: middle; margin-right: 0.3vw; margin-left: -0.3vw;">
+              <Close />
+            </el-icon>
+            <span style="vertical-align: middle">无地图</span>
+          </el-radio-button>
+        </el-radio-group>
+        <!-- 多选框 -->
+        <el-checkbox-group v-model="checkedLayers2" style="margin-top: 1.3vh;">
+          <el-checkbox-button value="各区域边界">
             <el-icon :size="15" style="vertical-align: middle; margin-right: 0.3vw; margin-left: -0.3vw;">
               <FullScreen />
             </el-icon>
-            <span style="vertical-align: middle">区域边界</span>
-          </el-radio-button>
-        </el-radio-group>
+            <span style="vertical-align: middle">各区域边界</span>
+          </el-checkbox-button>
+          <el-checkbox-button value="建筑物模型">
+            <el-icon :size="15" style="vertical-align: middle; margin-right: 0.3vw; margin-left: -0.3vw;">
+              <OfficeBuilding />
+            </el-icon>
+            <span style="vertical-align: middle">建筑物模型</span>
+          </el-checkbox-button>
+        </el-checkbox-group>
       </div>
     </div>
   </div>
@@ -35,12 +51,14 @@ import { ref, watch, onMounted } from 'vue'
 import * as Cesium from 'cesium'
 import { useViewerStore } from '@/store/viewerStore'
 
-const checkedLayers = ref('区域边界')
+const checkedLayers1 = ref('无地图')
+const checkedLayers2 = ref(['各区域边界', '建筑物模型'])
 const viewerStore = useViewerStore()
 
 // 需要加载的数据们
 let regionGeoJSON = null
 let regionLabel = [null, null, null, null, null, null, null, null]
+let buildingTileset = null
 
 // regionLabel的内容准备
 const regionName = [
@@ -65,8 +83,8 @@ const regionCoordinates = [
 ]
 
 // 监听单选框的变化
-watch(checkedLayers, (newVal, oldVal) => {
-  console.log('当前选中的图层：', newVal)
+watch(checkedLayers1, (newVal, oldVal) => {
+  console.log('当前选中的图层1：', newVal)
   // 碳储量格网地图
   if (newVal.includes('碳储量格网地图')) {
     console.log('碳储量格网地图被选中了')
@@ -75,8 +93,14 @@ watch(checkedLayers, (newVal, oldVal) => {
   if (newVal.includes('碳储量区域地图')) {
     console.log('碳储量区域地图被选中了')
   }
+}, { deep: true })  // 监视数组/对象内部值的变化
+
+
+// 监听多选框的变化
+watch(checkedLayers2, (newVal, oldVal) => {
+  console.log('当前选中的图层2：', newVal)
   // 区域边界
-  if (newVal.includes('区域边界')) {
+  if (newVal.includes('各区域边界')) {
     // region
     regionGeoJSON.show = true
     // label
@@ -91,7 +115,14 @@ watch(checkedLayers, (newVal, oldVal) => {
       viewerStore.$state.cesiumViewer.entities.getById(regionName[i]).show = false
     }
   }
+  // 建筑物3dtiles
+  if (newVal.includes('建筑物模型')) {
+    buildingTileset.show = true
+  } else {
+    buildingTileset.show = false
+  }
 }, { deep: true })  // 监视数组/对象内部值的变化
+
 
 onMounted(async () => {
   // 加载region.geojson
@@ -121,6 +152,11 @@ onMounted(async () => {
       }
     })
   }
+
+  // 加载building 3dtiles
+  buildingTileset = await viewerStore.$state.cesiumViewer.scene.primitives.add(new Cesium.Cesium3DTileset({
+    url: 'http://localhost:9003/model/tiEIgZH04/tileset.json'
+  }))
 })
 </script>
 

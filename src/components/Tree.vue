@@ -145,8 +145,6 @@ onMounted(async () => {
     gmGeoJsons[i].show = false
   }
 
-
-
   // 创建事件处理器实例
   const handler = new Cesium.ScreenSpaceEventHandler(viewerStore.$state.cesiumViewer.scene.canvas)
 
