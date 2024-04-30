@@ -156,7 +156,7 @@ onMounted(async () => {
 
   // 加载building 3dtiles
   buildingTileset = await viewerStore.$state.cesiumViewer.scene.primitives.add(new Cesium.Cesium3DTileset({
-    url: 'http://localhost:9003/model/tuMa7o59J/tileset.json'
+    url: 'http://localhost:9003/model/tvh39XeWj/tileset.json'
   }))
 
   // 加载building name
