@@ -74,6 +74,8 @@ let regionGeoJSON = null
 let regionLabel = new Array(8).fill(null)
 let buildingTileset = null
 let buildingLabel = new Array(53).fill(null)
+let WMSMap1 = null
+let WMSMap2 = null
 
 
 // 监听单选框的变化
@@ -81,7 +83,9 @@ watch(checkedLayers1, (newVal, oldVal) => {
   console.log('当前选中的图层1：', newVal)
   // 碳储量格网地图
   if (newVal.includes('碳储量格网地图')) {
-    console.log('碳储量格网地图被选中了')
+    WMSMap1.show = true
+  } else {
+    WMSMap1.show = false
   }
   // 碳储量区域地图
   if (newVal.includes('碳储量区域地图')) {
@@ -173,6 +177,20 @@ onMounted(async () => {
     })
     viewerStore.$state.cesiumViewer.entities.getById(buildingName[i]).label.show = false
   }
+
+  // 加载WMS地图1
+  WMSMap1 = viewerStore.$state.cesiumViewer.imageryLayers.addImageryProvider(new Cesium.WebMapServiceImageryProvider({
+    url: 'http://localhost:8080/geoserver/geoserverTest/wms',
+    layers: '	geoserverTest:region_boundary4326',
+    parameters: {
+      service: 'WMS',
+      format: 'image/png',
+      transparent: true,
+      version: '1.1.1',
+      tiled: true
+    }
+  }))
+  WMSMap1.show = false
 })
 </script>
 
