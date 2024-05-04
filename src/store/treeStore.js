@@ -4,15 +4,15 @@ export const useTreeStore = defineStore({
   id: 'Tree',
   state: () => ({
     treeInfo: {
-      Carbon: 0,
-      CrownArea: 0,
-      CrownDiameter: 0,
-      CrownVolume: 0,
+      cs: 0,
+      ca: 0,
+      cd: 0,
+      cv: 0,
       DBH: 0,
-      TreeHeight: 0,
-      TreeID: 'Pending ID',
-      TreeLocationX: 0,
-      TreeLocationY: 0,
+      height: 0,
+      id: 'Pending ID',
+      x: 0,
+      y: 0,
       lat: 'Pending ID',
       lng: 'Pending ID'
     },

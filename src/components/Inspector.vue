@@ -17,13 +17,13 @@
             <el-avatar :size="70" src="/tree.png"></el-avatar>
           </div>
           <div class="info">
-            <div class="treeid"><strong>树ID：</strong>{{ treeStore.$state.treeInfo.TreeID }}</div>
-            <div class="treelng"><strong>经度：</strong>{{ typeof treeStore.$state.treeInfo.lat === 'number' ?
-              `${treeStore.$state.treeInfo.lat.toFixed(4)}°E` : treeStore.$state.treeInfo.lat }}</div>
-            <div class="treelat"><strong>纬度：</strong>{{ typeof treeStore.$state.treeInfo.lng === 'number' ?
-              `${treeStore.$state.treeInfo.lng.toFixed(5)}°N` : treeStore.$state.treeInfo.lng }}</div>
-            <div class="treeregion"><strong>区域：</strong>{{ treeStore.$state.treeInfo.TreeID === 'Pending ID' ?
-              'Pending ID' : regionName[treeStore.$state.treeInfo.TreeID.split('-')[0] - 1].slice(2) }}</div>
+            <div class="treeid"><strong>树ID：</strong>{{ treeStore.$state.treeInfo.id }}</div>
+            <div class="treelng"><strong>纬度：</strong>{{ typeof treeStore.$state.treeInfo.lat === 'number' ?
+              `${treeStore.$state.treeInfo.lat.toFixed(4)}°N` : treeStore.$state.treeInfo.lat }}</div>
+            <div class="treelat"><strong>经度：</strong>{{ typeof treeStore.$state.treeInfo.lng === 'number' ?
+              `${treeStore.$state.treeInfo.lng.toFixed(5)}°E` : treeStore.$state.treeInfo.lng }}</div>
+            <div class="treeregion"><strong>区域：</strong>{{ treeStore.$state.treeInfo.id === 'Pending ID' ?
+              'Pending ID' : regionName[treeStore.$state.treeInfo.id.split('-')[0] - 1].slice(2) }}</div>
           </div>
         </div>
         <div class="rightTreeInfo">
@@ -34,7 +34,7 @@
                   Carbon Stock (kg)
                 </div>
               </template>
-              {{ treeStore.$state.treeInfo.Carbon.toFixed(3) }}
+              {{ treeStore.$state.treeInfo.cs.toFixed(3) }}
             </el-descriptions-item>
             <el-descriptions-item label-class-name="my-label" align="center">
               <template #label>
@@ -42,7 +42,7 @@
                   Tree Height (m)
                 </div>
               </template>
-              {{ treeStore.$state.treeInfo.TreeHeight.toFixed(3) }}
+              {{ treeStore.$state.treeInfo.height.toFixed(3) }}
             </el-descriptions-item>
             <el-descriptions-item label-class-name="my-label" class-name="my-content" align="center">
               <template #label>
@@ -58,7 +58,7 @@
                   Crown Area (m²)
                 </div>
               </template>
-              {{ treeStore.$state.treeInfo.CrownArea.toFixed(3) }}
+              {{ treeStore.$state.treeInfo.ca.toFixed(3) }}
             </el-descriptions-item>
             <el-descriptions-item label-class-name="my-label" class-name="my-content" align="center">
               <template #label>
@@ -66,7 +66,7 @@
                   Crown Diameter (m)
                 </div>
               </template>
-              {{ treeStore.$state.treeInfo.CrownDiameter.toFixed(3) }}
+              {{ treeStore.$state.treeInfo.cd.toFixed(3) }}
             </el-descriptions-item>
             <el-descriptions-item label-class-name="my-label" class-name="my-content" align="center">
               <template #label>
@@ -74,7 +74,7 @@
                   Crown Volume (m³)
                 </div>
               </template>
-              {{ treeStore.$state.treeInfo.CrownVolume.toFixed(3) }}
+              {{ treeStore.$state.treeInfo.cv.toFixed(3) }}
             </el-descriptions-item>
           </el-descriptions>
         </div>
@@ -126,7 +126,7 @@ const getTreeByID = async (treeID) => {
   console.log(treeInfo[0].lng, treeInfo[0].lat)
   // 地图定位到树木位置
   viewerStore.$state.cesiumViewer.camera.flyTo({
-    destination: Cesium.Cartesian3.fromDegrees(treeInfo[0].lat, treeInfo[0].lng, 100),
+    destination: Cesium.Cartesian3.fromDegrees(treeInfo[0].lng, treeInfo[0].lat, 100),
     orientation: {
       heading: Cesium.Math.toRadians(0),
       pitch: Cesium.Math.toRadians(-90),
@@ -141,7 +141,7 @@ const getTreeByID = async (treeID) => {
     treeStore.SelectedTree = null
   }
   // 在树的位置添加一个红色点
-  const position = Cesium.Cartesian3.fromDegrees(treeInfo[0].lat, treeInfo[0].lng, 0)
+  const position = Cesium.Cartesian3.fromDegrees(treeInfo[0].lng, treeInfo[0].lat, 0)
   treeStore.$state.selectedTree = viewerStore.$state.cesiumViewer.entities.add({
     name: 'Red point',
     position: position,

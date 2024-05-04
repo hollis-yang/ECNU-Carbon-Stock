@@ -166,7 +166,7 @@ onMounted(async () => {
         }
 
         // 在树的位置添加一个红色点
-        const position = Cesium.Cartesian3.fromDegrees(treeData.value.lat, treeData.value.lng, 0)
+        const position = Cesium.Cartesian3.fromDegrees(treeData.value.lng, treeData.value.lat, 0)
         treeStore.$state.selectedTree = viewerStore.$state.cesiumViewer.entities.add({
           name: 'Red point',
           position: position,
