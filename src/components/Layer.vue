@@ -83,13 +83,15 @@ watch(checkedLayers1, (newVal, oldVal) => {
   console.log('当前选中的图层1：', newVal)
   // 碳储量格网地图
   if (newVal.includes('碳储量格网地图')) {
-    WMSMap1.show = true
+    // WMSMap1.show = true
   } else {
-    WMSMap1.show = false
+    // WMSMap1.show = false
   }
   // 碳储量区域地图
-  if (newVal.includes('碳储量区域地图')) {
-    console.log('碳储量区域地图被选中了')
+  if (newVal.includes('区域碳储量地图')) {
+    WMSMap2.show = true
+  } else {
+    WMSMap2.show = false
   }
 }, { deep: true })  // 监视数组/对象内部值的变化
 
@@ -179,9 +181,23 @@ onMounted(async () => {
   }
 
   // 加载WMS地图1
-  WMSMap1 = viewerStore.$state.cesiumViewer.imageryLayers.addImageryProvider(new Cesium.WebMapServiceImageryProvider({
-    url: 'http://localhost:8080/geoserver/geoserverTest/wms',
-    layers: '	geoserverTest:region_boundary4326',
+  // WMSMap1 = viewerStore.$state.cesiumViewer.imageryLayers.addImageryProvider(new Cesium.WebMapServiceImageryProvider({
+  //   url: 'http://localhost:8080/geoserver/ECNUCarbon/wms',
+  //   layers: 'ECNUCarbon:regionMap',
+  //   parameters: {
+  //     service: 'WMS',
+  //     format: 'image/png',
+  //     transparent: true,
+  //     version: '1.1.1',
+  //     tiled: true
+  //   }
+  // }))
+  // WMSMap1.show = false
+
+  // 加载WMS地图2
+  WMSMap2 = viewerStore.$state.cesiumViewer.imageryLayers.addImageryProvider(new Cesium.WebMapServiceImageryProvider({
+    url: 'http://localhost:8080/geoserver/ECNUCarbon/wms',
+    layers: 'ECNUCarbon:regionMap',
     parameters: {
       service: 'WMS',
       format: 'image/png',
@@ -190,7 +206,7 @@ onMounted(async () => {
       tiled: true
     }
   }))
-  WMSMap1.show = false
+  WMSMap2.show = false
 })
 </script>
 
