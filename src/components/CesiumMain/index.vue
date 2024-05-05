@@ -8,6 +8,7 @@ import Tree from '@/components/Tree.vue'
 import Inspector from '@/components/Inspector.vue'
 import Layer from '@/components/Layer.vue'
 import Copyright from '@/components/Copyright.vue'
+import Legend from '@/components/Legend.vue'
 
 const containerRef = ref()
 const viewerStore = useViewerStore()
@@ -79,8 +80,11 @@ onMounted(() => {
     <Layer class="layer"></Layer>
     <Copyright class="copyright"></Copyright>
   </div>
-  <div class="others">
+  <div class="avatar">
     <Avatar></Avatar>
+  </div>
+  <div class="legend">
+    <Legend></Legend>
   </div>
   <div id="cesiumContainer" ref="containerRef">
   </div>
