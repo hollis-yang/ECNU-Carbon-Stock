@@ -1,15 +1,36 @@
 <template>
-  <div class="top">
-    <div class="title"><i><strong>Legend</strong></i></div>
-    <div class="desc">碳储量 (kg)</div>
-  </div>
-  <div v-for="(color, index) in colors2" :key="index" class="map">
-    <div class="color-box" :style="{ backgroundColor: getColorString(color) }"></div>
-    <div class="layer-name">{{ layerNames2[index] }}</div>
+  <div class="container">
+    <div class="top">
+      <div class="title"><i><strong>Legend</strong></i></div>
+      <div class="map">
+        <div class="color-box" style="box-sizing: border-box; background-color: transparent; border: 0.25vh white solid;"></div>
+        <div class="layer-name">区域边界</div>
+      </div>
+    </div>
+
+    <div class="mapContainer" v-if="legendStore.$state.showMap1">
+      <div class="desc">碳储量 (kg)</div>
+      <div v-for="(color, index) in colors2" :key="index" class="map">
+        <div class="color-box" :style="{ backgroundColor: getColorString(color) }"></div>
+        <div class="layer-name">{{ layerNames2[index] }}</div>
+      </div>
+    </div>
+
+    <div class="mapContainer" v-if="legendStore.$state.showMap2">
+      <div class="desc">碳储量 (kg)</div>
+      <div v-for="(color, index) in colors2" :key="index" class="map">
+        <div class="color-box" :style="{ backgroundColor: getColorString(color) }"></div>
+        <div class="layer-name">{{ layerNames2[index] }}</div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup>
+import { useLegendStore } from '@/store/legendStore'
+
+const legendStore = useLegendStore()
+
 const getColorString = (color) => {
   return `rgba(${color[0]}, ${color[1]}, ${color[2]}, ${color[3]})`
 }
@@ -36,6 +57,16 @@ const layerNames2 = [
   margin-top: -1vh;
   margin-bottom: 1vh;
   font-size: 2.25vh;
+
+  .title {
+    margin-bottom: 1vh;
+  }
+}
+
+.desc {
+  color: white;
+  font-size: 2.25vh;
+  margin-bottom: 1vh;
 }
 
 .map {

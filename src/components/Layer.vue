@@ -62,12 +62,14 @@
 import { ref, watch, onMounted } from 'vue'
 import * as Cesium from 'cesium'
 import { useViewerStore } from '@/store/viewerStore'
+import { useLegendStore } from '@/store/legendStore'
 import { regionCoordinates, regionName } from '@/utils/region'
 import { buildingCoordinates, buildingName } from '@/utils/building'
 
 const checkedLayers1 = ref('无地图')
 const checkedLayers2 = ref(['区域边界', '区域注记', '建筑模型'])
 const viewerStore = useViewerStore()
+const legendStore = useLegendStore()
 
 // 需要加载的数据们
 let regionGeoJSON = null
@@ -81,17 +83,27 @@ let WMSMap2 = null
 // 监听单选框的变化
 watch(checkedLayers1, (newVal, oldVal) => {
   console.log('当前选中的图层1：', newVal)
+  // 有任何一个就显示 Legend 的title
+  if (newVal.includes('碳储量格网地图') || newVal.includes('区域碳储量地图')) {
+    legendStore.$state.showTitle = true
+  } else {
+    legendStore.$state.showTitle = false
+  }
   // 碳储量格网地图
   if (newVal.includes('碳储量格网地图')) {
     // WMSMap1.show = true
+    // legendStore.$state.showMap1 = true
   } else {
     // WMSMap1.show = false
+    // legendStore.$state.showMap1 = false
   }
   // 碳储量区域地图
   if (newVal.includes('区域碳储量地图')) {
     WMSMap2.show = true
+    legendStore.$state.showMap2 = true
   } else {
     WMSMap2.show = false
+    legendStore.$state.showMap2 = false
   }
 }, { deep: true })  // 监视数组/对象内部值的变化
 
