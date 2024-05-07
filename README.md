@@ -6,5 +6,6 @@
 - Cesium
 - Cesiumlab
 - SCSS
+- GeoServer
 - Python Flask
 
